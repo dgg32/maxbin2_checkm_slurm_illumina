@@ -1,5 +1,5 @@
 # maxbin2_checkm_slurm_illumina
-Slurm workflow for metagnomic binning in DSMZ
+Slurm workflow for metagnomic binning in DSMZ. This script relies on the slurm scheduler to orchestrate the computer resources. It put together several bioinformatic tools and has add an important step in the middle: to filter the primer-dimers ("carp" sequences).
 
 
 ## Prerequisites
