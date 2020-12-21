@@ -12,7 +12,15 @@ Megahit
 
 Maxbin
 
+MetaBat
+
+Concoct
+
 Checkm
+
+DAS Tool
+
+
 
 
 ## Installing
