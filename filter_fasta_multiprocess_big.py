@@ -27,7 +27,7 @@ R2_input_file = R1_input_file.replace("R1", "R2")
 
 cores = 8
 
-if len(sys.argv) >= 4:
+if len(sys.argv) >= 3:
     cores = int(sys.argv[3]) 
 
 taboos = []
@@ -123,23 +123,24 @@ R1_output = R1_input_file.replace(".fastq", "_no_carp.fastq")
 R2_output = R2_input_file.replace(".fastq", "_no_carp.fastq")
 
 
-with open(R1_output, 'a') as R1, open(R2_output, 'a') as R2:
 
 
-    while not out_queue.empty():
-        result = out_queue.get()
+
+while not out_queue.empty():
+
+    result = out_queue.get()
 
 
-        left_pair_content = result[0]
-        right_pair_content = result[1]
+    left_pair_content = result[0]
+    right_pair_content = result[1]
 
-        
+    with open(R1_output, 'a') as R1, open(R2_output, 'a') as R2:
         R1.write(left_pair_content)
 
         R2.write(right_pair_content)
 
 
-        out_queue.task_done()
+    out_queue.task_done()
 
 
 in_queue.join()

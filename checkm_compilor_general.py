@@ -6,7 +6,7 @@ extension = "bin_stats_ext.tsv"
 
 top_folder = sys.argv[1]
 
-headers = ["marker lineage", "Completeness", "Contamination", "Mean contig length", "N50 (contigs)", "Coding density", "# contigs", "Genome size"]
+headers = ["marker lineage", "Completeness", "Contamination", "Mean contig length", "N50 (contigs)", "Coding density", "# contigs", "Genome size", "GC"]
 
 container = []
 
