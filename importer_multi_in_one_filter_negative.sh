@@ -1,7 +1,7 @@
 #!/bin/bash
 
 inputfolder=$1
-
+nc_index=$2
 projectname=$(basename "${inputfolder}")
 
 cpu=28
@@ -24,12 +24,12 @@ do
 	R1_no_carp=${R1/.fastq/"_trimmed_no_carp.fastq"}
 	R2_no_carp=${R2/.fastq/"_trimmed_no_carp.fastq"}
 
-	# R1_no_conta=${R1/.fastq/"_trimmed_no_carp_no_conta.fastq"}
-	# R2_no_conta=${R2/.fastq/"_trimmed_no_carp_no_conta.fastq"}
+	R1_no_conta=${R1/.fastq/"_trimmed_no_carp_no_conta.fastq"}
+	R2_no_conta=${R2/.fastq/"_trimmed_no_carp_no_conta.fastq"}
 
-	# mapping_bam=${R1/.fastq/"_trimmed_no_carp.bam"}
-	# bothReadsUnmapped=${R1/.fastq/"_trimmed_no_carp_bothReadsUnmapped.bam"}
-	# sort_bothReadsUnmapped=${R1/.fastq/"_trimmed_no_carp_bothReadsUnmapped_sorted.bam"}
+	mapping_bam=${R1/.fastq/"_trimmed_no_carp.bam"}
+	bothReadsUnmapped=${R1/.fastq/"_trimmed_no_carp_bothReadsUnmapped.bam"}
+	sort_bothReadsUnmapped=${R1/.fastq/"_trimmed_no_carp_bothReadsUnmapped_sorted.bam"}
 
 	if [ ! -f $R1trim ];
 	then
@@ -42,20 +42,16 @@ do
 		python filter_fasta_multiprocess.py './taboo.txt' $R1trim $cpu
 	fi
 
-	# bowtie2 -x $nc_index -1 $R1_no_carp -2 $R2_no_carp -p $cpu | samtools view -bS -o $mapping_bam
-	# samtools view -b -f 12 -F 256 $mapping_bam > $bothReadsUnmapped
-	# samtools sort -n -@ 2 $bothReadsUnmapped -o $sort_bothReadsUnmapped
-	# samtools fastq -@ 8 $sort_bothReadsUnmapped -1 $R1_no_conta -2 $R2_no_conta -0 /dev/null -s /dev/null -n
+	bowtie2 -x $nc_index -1 $R1_no_carp -2 $R2_no_carp -p $cpu | samtools view -bS -o $mapping_bam
+	samtools view -b -f 12 -F 256 $mapping_bam > $bothReadsUnmapped
+	samtools sort -n -@ 2 $bothReadsUnmapped -o $sort_bothReadsUnmapped
+	samtools fastq -@ 8 $sort_bothReadsUnmapped -1 $R1_no_conta -2 $R2_no_conta -0 /dev/null -s /dev/null -n
 
 
 
-	# R1_list="${R1_list},$R1_no_conta"
-	# R2_list="${R2_list},$R2_no_conta"
-	# total_list="${total_list}\n$R1_no_conta\n$R2_no_conta"
-
-	R1_list="${R1_list},$R1_no_carp"
-	R2_list="${R2_list},$R2_no_carp"
-	total_list="${total_list}\n$R1_no_carp\n$R2_no_carp"
+	R1_list="${R1_list},$R1_no_conta"
+	R2_list="${R2_list},$R2_no_conta"
+	total_list="${total_list}\n$R1_no_conta\n$R2_no_conta"
 
 
 done
