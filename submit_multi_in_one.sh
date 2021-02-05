@@ -4,5 +4,13 @@
 
 find $1 -maxdepth 1 -regex '\S+fastq.gz' -exec gunzip {} \;
 
+nc_fasta=$2
+nc_index=${nc_fasta/.fa/""}
+nc_index_file=${nc_fasta/.fa/".1.bt2"}
 
-sbatch -c 28 --mem=230G -p long --error $1/slurm-%A_%a.error.txt --output $1/output.txt importer_multi_in_one.sh $1
+if [ ! -f $nc_index_file ];
+then
+    bowtie2-build $nc_fasta $nc_index
+fi
+
+sbatch -c 28 --mem=230G -p long --error $1/slurm-%A_%a.error.txt --output $1/output.txt importer_multi_in_one.sh $1 $nc_index
