@@ -12,6 +12,10 @@ Megahit
 
 Maxbin
 
+Bowtie2
+
+Samtools
+
 MetaBat
 
 Concoct
