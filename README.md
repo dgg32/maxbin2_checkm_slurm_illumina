@@ -32,7 +32,7 @@ All the pipeline specific tools have been already installed in the "binning" env
 
 You may need to restart the terminal to proceed.
 
-Afterwards, activate the "binning" environment by issuing the following command in terminal
+Afterwards to test whether the environment is available, activate the "binning" environment by issuing the following command in terminal
 
     conda activate binning
 
@@ -43,6 +43,10 @@ Scripts can be run as is without installation.
 
 
 ## Run
+
+0. activate the binning environment by issuing the following command in terminal:
+
+    conda activate binning
 
 1. cd into this script folder
 
