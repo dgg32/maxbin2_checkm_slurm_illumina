@@ -1,6 +1,6 @@
 #!/bin/bash
 
-
+sicklepath="/home/sih13/tool/sickle-master/sickle"
 
 R1=$(find $1 -maxdepth 1 -regex '\S+fastq'  -not -name "*trimmed*" | grep "R1" | head -n $SLURM_ARRAY_TASK_ID | tail -n 1)
 #R1=$(find $1 -maxdepth 1 -regex '\S+fastq'  -not -name "*trimmed*" | grep "R1" | head -n 2 | tail -n 1)
@@ -36,7 +36,7 @@ maxbinout=$maxbinoutfolder"/maxbin"
 
  if [ ! -f $R1trim ];
  then
- /home/sih13/tool/sickle-master/sickle pe -f $R1 -r $R2 -o $R1trim -p $R2trim -s $single --quiet -t sanger
+ $sicklepath pe -f $R1 -r $R2 -o $R1trim -p $R2trim -s $single --quiet -t sanger
  fi
 
 
@@ -134,10 +134,6 @@ o_bins=$dasoutfolder/o_DASTool_bins
  if [ ! -d $das_checkmfolder ];
  then
 
- source ~/anaconda3/etc/profile.d/conda.sh
-
- conda activate checkm
-
  checkm  lineage_wf -t 8 -x fa $o_bins $das_checkmfolder
 
  fi
@@ -146,9 +142,7 @@ o_bins=$maxbinoutfolder
 if [ ! -d $maxbin_checkmfolder ];
 then
 
-source ~/anaconda3/etc/profile.d/conda.sh
 
-conda activate checkm
 checkm  lineage_wf -t 8 -x fasta $o_bins $maxbin_checkmfolder
 fi
 
@@ -156,9 +150,6 @@ o_bins=$metabatoutfolder/final.contigs.fa.metabat-bins1500
 if [ ! -d $metabat_checkmfolder ];
 then
 
-source ~/anaconda3/etc/profile.d/conda.sh
-
-conda activate checkm
 checkm  lineage_wf -t 8 -x fa $o_bins $metabat_checkmfolder
 fi
 
@@ -166,9 +157,6 @@ o_bins=$concoctoutfolder/bin
 if [ ! -d $concoct_checkmfolder ];
 then
 
-source ~/anaconda3/etc/profile.d/conda.sh
-
-conda activate checkm
 checkm  lineage_wf -t 8 -x fa $o_bins $concoct_checkmfolder
 fi
 
