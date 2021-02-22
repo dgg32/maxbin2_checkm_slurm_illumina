@@ -12,13 +12,13 @@ Slurm workflow for metagnomic binning in DSMZ. This script relies on the slurm s
    
   - Megahit
    
- - Maxbin
+ - Maxbin2
    
  - Bowtie2
    
  - Samtools
    
- - MetaBat
+ - MetaBat2
    
  - Concoct
  - Checkm
