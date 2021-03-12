@@ -5,4 +5,4 @@
 find $1 -maxdepth 1 -regex '\S+fastq.gz' -exec gunzip {} \;
 
 
-sbatch -c 16 --mem=230G -p mid --error $1/slurm-%A_%a.error.txt --output $1/output.txt --array=1-$(find $1 -maxdepth 1 -name "*.fastq" -not -name "*trimmed*" | grep "R1" | wc -l) importer.sh $1
+sbatch -c 28 --mem=235G -p long --error $1/slurm-%A_%a.error.txt --output $1/output.txt --array=1-$(find $1 -maxdepth 1 -name "*.fastq" -not -name "*trimmed*" | grep "R1" | wc -l) importer.sh $1
