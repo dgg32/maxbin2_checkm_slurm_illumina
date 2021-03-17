@@ -1,7 +1,5 @@
 #!/bin/bash
 
-sicklepath="/home/sih13/tool/sickle-master/sickle"
-
 R1=$(find $1 -maxdepth 1 -regex '\S+fastq'  -not -name "*trimmed*" | grep "R1" | head -n $SLURM_ARRAY_TASK_ID | tail -n 1)
 #R1=$(find $1 -maxdepth 1 -regex '\S+fastq'  -not -name "*trimmed*" | grep "R1" | head -n 2 | tail -n 1)
 
@@ -36,7 +34,7 @@ maxbinout=$maxbinoutfolder"/maxbin"
 
  if [ ! -f $R1trim ];
  then
- $sicklepath pe -f $R1 -r $R2 -o $R1trim -p $R2trim -s $single --quiet -t sanger
+ sickle pe -f $R1 -r $R2 -o $R1trim -p $R2trim -s $single --quiet -t sanger
  fi
 
 
