@@ -33,7 +33,7 @@ do
 
 	if [ ! -f $R1trim ];
 	then
-		/home/sih13/tool/sickle-master/sickle pe -f $R1 -r $R2 -o $R1trim -p $R2trim -s $single --quiet -t sanger
+		sickle pe -f $R1 -r $R2 -o $R1trim -p $R2trim -s $single --quiet -t sanger
 	fi
 
 
