@@ -56,9 +56,9 @@ Scripts can be run as is without installation.
 
 After all the metagenomes are processed, we can then compile the chechm results:
 
-3. find [metagenome folder] -type d -name "*_checkm" -printf "%f\n\n" -exec python checkm_compilor_general.py {} \; > [chechm_summary_output_file]
+3. find [metagenome folder] -type d -name "*_checkm" -printf "%f\n\n" -exec python checkm_compilor_general.py {} \\; > [chechm_summary_output_file]
 
-4. find [bin folder]  \( -name "*.fa" -o -name "*.fasta" \) -printf "\n\n%f" -exec python bam_coverage.py [mapping_sort.bam_file]   {} \;
+4. find [bin folder]  \\( -name "*.fa" -o -name "*.fasta" \\) -printf "\n\n%f" -exec python bam_coverage.py [mapping_sort.bam_file]   {} \\;
 
 
 ## Authors
