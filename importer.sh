@@ -1,4 +1,6 @@
 #!/bin/bash
+script_folder=$(pwd)
+
 
 R1=$(find $1 -maxdepth 1 -regex '\S+fastq'  -not -name "*trimmed*" | grep "R1" | head -n $SLURM_ARRAY_TASK_ID | tail -n 1)
 #R1=$(find $1 -maxdepth 1 -regex '\S+fastq'  -not -name "*trimmed*" | grep "R1" | head -n 2 | tail -n 1)
@@ -126,6 +128,12 @@ maxbinout=$maxbinoutfolder"/maxbin"
 
  fi
 
+
+
+
+cd $script_folder
+
+
 o_bins=$dasoutfolder/o_DASTool_bins
 
 
@@ -133,6 +141,9 @@ o_bins=$dasoutfolder/o_DASTool_bins
  then
 
  checkm  lineage_wf -t 8 -x fa $o_bins $das_checkmfolder
+
+
+ find $o_bins  \( -name "*.fa" -o -name "*.fasta" \) -printf "\n\n%f\t" -exec python bam_coverage.py $bamoutfolder/mapping_sort.bam  {} 150 \; > $1/DAS_coverage.txt
 
  fi
 
@@ -142,6 +153,8 @@ then
 
 
 checkm  lineage_wf -t 8 -x fasta $o_bins $maxbin_checkmfolder
+find $o_bins  \( -name "*.fa" -o -name "*.fasta" \) -printf "\n\n%f\t" -exec python bam_coverage.py $bamoutfolder/mapping_sort.bam  {} 150 \; > $1/maxbin_coverage.txt
+
 fi
 
 o_bins=$metabatoutfolder/final.contigs.fa.metabat-bins1500
@@ -149,6 +162,8 @@ if [ ! -d $metabat_checkmfolder ];
 then
 
 checkm  lineage_wf -t 8 -x fa $o_bins $metabat_checkmfolder
+find $o_bins  \( -name "*.fa" -o -name "*.fasta" \) -printf "\n\n%f\t" -exec python bam_coverage.py $bamoutfolder/mapping_sort.bam  {} 150 \; > $1/metabat_coverage.txt
+
 fi
 
 o_bins=$concoctoutfolder/bin
@@ -156,7 +171,10 @@ if [ ! -d $concoct_checkmfolder ];
 then
 
 checkm  lineage_wf -t 8 -x fa $o_bins $concoct_checkmfolder
+find $o_bins  \( -name "*.fa" -o -name "*.fasta" \) -printf "\n\n%f\t" -exec python bam_coverage.py $bamoutfolder/mapping_sort.bam  {} 150 \; > $1/concoct_coverage.txt
+
 fi
 
-
+checkm_summary=$1/checkm_summary.txt
+find $1 -maxdepth 1 -type d -name "*_checkm" -printf "\n%f\n" -exec python checkm_compilor_general.py {} \; > $checkm_summary
 

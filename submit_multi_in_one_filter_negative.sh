@@ -13,4 +13,4 @@ then
     bowtie2-build $nc_fasta $nc_index
 fi
 
-sbatch -c 28 --mem=230G -p long --error $1/slurm-%A_%a.error.txt --output $1/output.txt importer_multi_in_one_filter_negative.sh $1 $nc_index
+sbatch -c 28 --mem=230G -p mid --error $1/slurm-%A_%a.error.txt --output $1/output.txt importer_multi_in_one_filter_negative.sh $1 $nc_index
