@@ -142,38 +142,60 @@ o_bins=$dasoutfolder/o_DASTool_bins
 
  checkm  lineage_wf -t 8 -x fa $o_bins $das_checkmfolder
 
-
- find $o_bins  \( -name "*.fa" -o -name "*.fasta" \) -printf "\n\n%f\t" -exec python bam_coverage.py $bamoutfolder/mapping_sort.bam  {} 150 \; > $1/DAS_coverage.txt
-
  fi
+
+
+DAS_coverage=$dasoutfolder"_coverage.txt"
+ if [ ! -f $DAS_coverage ];
+ then 
+ find $o_bins  \( -name "*.fa" -o -name "*.fasta" \) -printf "\n\n%f\t" -exec python bam_coverage.py $bamoutfolder/mapping_sort.bam  {} 150 \; > $DAS_coverage
+ fi
+
+
 
 o_bins=$maxbinoutfolder
 if [ ! -d $maxbin_checkmfolder ];
 then
-
-
 checkm  lineage_wf -t 8 -x fasta $o_bins $maxbin_checkmfolder
-find $o_bins  \( -name "*.fa" -o -name "*.fasta" \) -printf "\n\n%f\t" -exec python bam_coverage.py $bamoutfolder/mapping_sort.bam  {} 150 \; > $1/maxbin_coverage.txt
 
 fi
+
+maxbin_coverage=$maxbinoutfolder"_coverage.txt"
+ if [ ! -f $maxbin_coverage ];
+ then 
+ find $o_bins  \( -name "*.fa" -o -name "*.fasta" \) -printf "\n\n%f\t" -exec python bam_coverage.py $bamoutfolder/mapping_sort.bam  {} 150 \; > $maxbin_coverage
+ fi
+
+
 
 o_bins=$metabatoutfolder/final.contigs.fa.metabat-bins1500
 if [ ! -d $metabat_checkmfolder ];
 then
 
 checkm  lineage_wf -t 8 -x fa $o_bins $metabat_checkmfolder
-find $o_bins  \( -name "*.fa" -o -name "*.fasta" \) -printf "\n\n%f\t" -exec python bam_coverage.py $bamoutfolder/mapping_sort.bam  {} 150 \; > $1/metabat_coverage.txt
 
 fi
+
+metabat_coverage=$metabatoutfolder"_coverage.txt"
+ if [ ! -f $metabat_coverage ];
+ then 
+ find $o_bins  \( -name "*.fa" -o -name "*.fasta" \) -printf "\n\n%f\t" -exec python bam_coverage.py $bamoutfolder/mapping_sort.bam  {} 150 \; > $metabat_coverage
+ fi
+
 
 o_bins=$concoctoutfolder/bin
 if [ ! -d $concoct_checkmfolder ];
 then
 
 checkm  lineage_wf -t 8 -x fa $o_bins $concoct_checkmfolder
-find $o_bins  \( -name "*.fa" -o -name "*.fasta" \) -printf "\n\n%f\t" -exec python bam_coverage.py $bamoutfolder/mapping_sort.bam  {} 150 \; > $1/concoct_coverage.txt
 
 fi
+
+concoct_coverage=$concoctoutfolder"_coverage.txt"
+ if [ ! -f $concoct_coverage ];
+ then 
+ find $o_bins  \( -name "*.fa" -o -name "*.fasta" \) -printf "\n\n%f\t" -exec python bam_coverage.py $bamoutfolder/mapping_sort.bam  {} 150 \; > $concoct_coverage
+ fi
 
 checkm_summary=$1/checkm_summary.txt
 find $1 -maxdepth 1 -type d -name "*_checkm" -printf "\n%f\n" -exec python checkm_compilor_general.py {} \; > $checkm_summary
