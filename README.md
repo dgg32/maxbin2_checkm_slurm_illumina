@@ -8,7 +8,7 @@ Slurm workflow for metagnomic binning in DSMZ. This script relies on the slurm s
 
  - Slurm
    
-  - Sickle
+  - fastp
    
   - Megahit
    

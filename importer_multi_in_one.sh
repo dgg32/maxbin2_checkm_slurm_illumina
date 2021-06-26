@@ -33,15 +33,16 @@ do
 	# bothReadsUnmapped=${R1/.fastq/"_trimmed_no_carp_bothReadsUnmapped.bam"}
 	# sort_bothReadsUnmapped=${R1/.fastq/"_trimmed_no_carp_bothReadsUnmapped_sorted.bam"}
 
-	if [ ! -f $R1trim ];
-	then
-		sickle pe -f $R1 -r $R2 -o $R1trim -p $R2trim -s $single --quiet -t sanger
-	fi
+	#if [ ! -f $R1trim ];
+	#then
+	#	sickle pe -f $R1 -r $R2 -o $R1trim -p $R2trim -s $single --quiet -t sanger
+	#fi
 
 
 	if [ ! -f $R1_no_carp ];
 	then
-		python filter_fasta_multiprocess.py './taboo.txt' $R1trim $cpu
+        fastp -i $R1 -I $R2 -o $R1_no_carp -O $R2_no_carp --adapter_sequence=AGATCGGAAGAGCACACGTCTGAACTCCAGTCA --adapter_sequence_r2=AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT -g --detect_adapter_for_pe -l 100
+		#python filter_fasta_multiprocess.py './taboo.txt' $R1trim $cpu
 	fi
 
 	# bowtie2 -x $nc_index -1 $R1_no_carp -2 $R2_no_carp -p $cpu | samtools view -bS -o $mapping_bam

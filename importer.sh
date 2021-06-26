@@ -34,15 +34,18 @@ concoct_checkmfolder=${single/_single_trimmed.fastq/"_concoct_checkm"}
 maxbinout=$maxbinoutfolder"/maxbin"
 
 
- if [ ! -f $R1trim ];
- then
- sickle pe -f $R1 -r $R2 -o $R1trim -p $R2trim -s $single --quiet -t sanger
- fi
+# if [ ! -f $R1trim ];
+# then
+# sickle pe -f $R1 -r $R2 -o $R1trim -p $R2trim -s $single --quiet -t sanger
+# fi
 
 
  if [ ! -f $R1_no_carp ];
  then
- python filter_fasta_multiprocess.py './taboo.txt' $R1trim 8
+ #python filter_fasta_multiprocess.py './taboo.txt' $R1trim 8
+
+fastp -i $R1 -I $R2 -o $R1_no_carp -O $R2_no_carp --adapter_sequence=AGATCGGAAGAGCACACGTCTGAACTCCAGTCA --adapter_sequence_r2=AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT -g --detect_adapter_for_pe -l 100
+
  fi
 
 
