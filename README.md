@@ -39,8 +39,6 @@ Afterwards to test whether the environment is available, activate the "binning" 
 
 ## Installing
 
-Please compile [sickle](https://github.com/najoshi/sickle) and add it to the path.
-
 Scripts can be run as is without installation.
 
 
